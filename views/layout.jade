@@ -1,0 +1,30 @@
+doctype html
+html
+  head
+    title=title
+    link(href='/stylesheets/bs.css', rel="stylesheet")
+    link(rel='stylesheet', href='/stylesheets/style.css')
+    script(src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js")
+    script(src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.js")
+    script(src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.min.js" integrity="sha256-Sk3nkD6mLTMOF0EOpNtsIry+s1CsaqQC1rVLTAy+0yc= sha512-K1qjQ+NcF2TYO/eI3M6v8EiNYZfA95pQumfvcVrTHtwQVDG+aHRqLi/ETn2uB+1JqwYqVG3LIvdm9lj6imS/pQ==" crossorigin="anonymous")
+  body
+    .navbar.navbar-default
+      .container-fluid
+        .navbar-header
+          a(class="navbar-brand" href="/") imgR
+        ul(class='nav navbar-nav navbar-right')
+          -if(!user){
+            li
+              a(href='/login') Login
+            li
+              a(href='/register') Register
+          -} else {
+            li
+              a(href='/user/#{user}') My images
+            li
+              a(href='/upload') Upload
+            li
+              a(href='/logout') Logout
+          -}
+
+    block content

@@ -1,0 +1,18 @@
+extends ../layout
+block content
+  .container
+    .page-header
+      h1=user
+    for photo in photos
+      .media
+        .media-left
+          a(href='/image/#{photo._id}')
+            img(src='#{photo.viewPath}' style='width : 150px;')
+        .media-body
+          h3=photo.title
+          p=photo.description
+          p tags: 
+            for tag in photo.tags
+              a(href='/image/tags/#{tag.trim()}')=tag
+
+

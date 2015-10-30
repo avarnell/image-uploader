@@ -1,0 +1,11 @@
+extends ../layout
+block content
+  .container
+    .page-header
+      h1 All Tags
+
+    for tag in tags
+      h2
+        a(href='/image/tags/#{tag.tagName.trim()}')=tag.tagName
+
+

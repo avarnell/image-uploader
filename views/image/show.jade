@@ -1,0 +1,49 @@
+extends ../layout
+block content
+  script(src='/javascripts/show.js')
+  .container
+    .col-md-10
+      .row
+        -if(image.user == user){
+          .delete.pull-right(data-id='#{image._id}') 
+            a(href='/image/#{image._id}/delete')
+              .btn.btn-danger Delete?
+          .edit.pull-right
+            .btn.btn-warning Edit?
+        -}
+        .page-header.col-md-offset-2
+          
+          h1(id='title')=image.title 
+          h3  by 
+            small=image.user
+        div(style='text-align : center')
+          img(src='#{image.viewPath}')
+        .col-md-6.col-md-offset-2
+          p Description: 
+            span(id='description')=image.description
+          p Tags: 
+            for tag in image.tags
+              a(href='/image/tags/#{tag.trim()}')=tag
+      .row
+          .col-md-offset-2
+            h3 Comments 
+        form(action='/image/#{image._id}' method='post' class='col-md-6 col-md-offset-3')
+          .form-group
+            label(for='name') Name : 
+            input(type='text' class='form-control' name='name' id='name' value='#{user}' disabled="disabled")
+          .form-group
+            label(for='comment') Comment : 
+            textarea(name='comment' id='comment' class='form-control')
+          input(type='submit' value='comment' class='btn btn-primary')
+      .row
+        -if(!comments.length){
+          br
+          p(class='col-md-6 col-md-offset-2') Doesnt look like there is anything here. Why not be the first?
+        -}else{
+          for comment in comments 
+            .col-md-8.col-md-offset-2
+              h3=comment.user  
+                span  said ...
+              p=comment.comment
+        -}
+

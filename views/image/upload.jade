@@ -1,0 +1,26 @@
+extends ../layout
+block content
+  .container
+    .row
+      .well.col-md-6.col-md-offset-3
+        .page-header
+          h1 Uploader
+        -if(errors){
+          for error in errors
+            p(class='text-danger')=error
+        -}
+        form(action='/upload' method='post' enctype="multipart/form-data")
+          .form-group
+            label(for='title') Title
+            input(type='text' name='title' id='title' class='form-control' placeholder='super awesome cat')
+          .form-group
+            label(for='tags') Tags
+            input(type='text' name='tags' id='tags' class='form-control' placeholder='kitty, cat, cutness')
+          .form-group
+            label(for='file') File
+            input(type='file' name='file' id='file' class='form-control')
+          .form-group
+            label(for='description') Description
+            textarea(name='description' id='description' class='form-control')
+          input(type='submit' value='upload' class='btn btn-primary')
+

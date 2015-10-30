@@ -1,0 +1,24 @@
+extends ../layout
+block content
+  .container
+    .row
+      .well.col-md-8.col-md-offset-2
+        .page-header
+          h1 Regiser
+        -if(errors){
+          for error in errors
+            p(class='text-danger')=error
+        -}
+
+        form(method='post' action='/register')
+          .form-group
+            label(for='username') Username 
+            input(name='username' id='username' type='text' class='form-control')
+          .form-group
+            label(for='password') Password
+            input(type='password' id='password' name='password' class='form-control')
+          .form-group
+            label(for='retype') Retype Password
+            input(type='password' id='retype' name='retype' class='form-control')
+          input(type='submit' value='Register' class='btn btn-primary')
+
