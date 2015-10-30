@@ -1,6 +1,7 @@
 extends ../layout
 block content
   script(src='/javascripts/show.js')
+  script(src='/javascripts/showUpvote.js')
   .container
     .col-md-10
       .row
@@ -24,6 +25,16 @@ block content
           p Tags: 
             for tag in image.tags
               a(href='/image/tags/#{tag.trim()}')=tag
+        .col-md-2      
+          .upvotes
+            .score
+              h3 Score :
+                span(id='score')=image.score
+            .btn.btn-success.upvote(data-id='#{image._id}')
+              span(class='glyphicon glyphicon-thumbs-up')
+            .btn.btn-danger.downvote(data-id='#{image._id}')
+              span(class='glyphicon glyphicon-thumbs-down')
+            
       .row
           .col-md-offset-2
             h3 Comments 
@@ -37,8 +48,8 @@ block content
           input(type='submit' value='comment' class='btn btn-primary')
       .row
         -if(!comments.length){
-          br
-          p(class='col-md-6 col-md-offset-2') Doesnt look like there is anything here. Why not be the first?
+
+          p(class='col-md-6 col-md-offset-2' style='margin-top: 10px') Doesnt look like there is anything here. Why not be the first?
         -}else{
           for comment in comments 
             .col-md-8.col-md-offset-2
