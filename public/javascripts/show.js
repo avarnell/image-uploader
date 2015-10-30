@@ -26,7 +26,6 @@ $('document').ready(function(){
         $('#newDescription').replaceWith('<span id="description">'+ newDescription +'</span>')
         $('.btn-warning').text('Edit?')
         $(this).addClass('edit')
-
       })
 
     })

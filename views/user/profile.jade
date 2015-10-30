@@ -1,8 +1,10 @@
 extends ../layout
 block content
+  script(src='/javascripts/profile.js')
   .container
-    .page-header
-      h1=user
+    .row
+        h1=user
+    .row
     for photo in photos
       .media
         .media-left

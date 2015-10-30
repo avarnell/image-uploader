@@ -45,7 +45,11 @@ router.post('/register', function(req,res,next){
       }
       else{
         var hash = bcrypt.hashSync(req.body.password, 8)
-        Users.insert({username: req.body.username, passhash : hash}, function(){
+        Users.insert({username: 
+          req.body.username,
+          passhash : hash,
+          profilePic : '/images/emptyProf.png'
+       }, function(){
           res.redirect('/login')
         })
       }
@@ -106,7 +110,8 @@ router.post('/upload',  function(req,res,next){
         viewPath : viewPath, 
         tags : tags,
         user: req.session.username,
-        description: req.body.description
+        description: req.body.description,
+        score : 0
       }).then(function(){
         var path = './public/uploads/' + name + '.' + fileType
         fs.writeFile(path, file)
@@ -204,10 +209,29 @@ router.get('/image/:id/delete', function(req,res,next){
 
 router.get('/user/:username', function(req,res,next){
   dbroutes.getUserProfile(req.params.username).then(function(photos){
-    res.render('user/profile', {photos : photos, user: req.session.username})
+    var photos = photos
+    Users.findOne({username : req.params.username}).then(function(profile){
+      res.render('user/profile', {photos : photos, 
+        user: req.session.username
+      })
+    })
   })
 })
 
+router.get('/logout', function(req,res,next){
+  req.session = null
+  res.redirect('/')
+})
+
+router.post('/upvote', function(req,res,next){
+  photoCollection.update({_id:req.body.id},{$inc: {score: 1}})
+  res.send('hit')
+})
+
+router.post('/downvote', function(req,res,next){
+  photoCollection.update({_id:req.body.id},{$inc: {score: -1}})
+  res.send('hit')
+})
 
 
 module.exports = router;

@@ -1,6 +1,6 @@
 extends layout
-
 block content
+  script(src='/javascripts/upvote.js')
   .container
     .row
       .col-md-10.col-md-offset-1
@@ -12,13 +12,24 @@ block content
               .row
             -}
               .thumbnail.col-md-4
-                a(href='/image/#{photos[i]._id}')
-                  img(src='#{photos[i].viewPath}' style='height : 150px;')
-                .caption
-                  h3=photos[i].title
-                  p=photos[i].description
-                  span Tags : 
-                  for tag in photos[i].tags
-                    a(href='image/tags/#{tag.trim()}')=tag
+                .col-md-4
+                  .caption.text-center
+                    .btn.btn-success.upvote(data-id='#{photos[i]._id}')
+                      span(class='glyphicon glyphicon-thumbs-up')
+                    h2(class='score')=photos[i].score
+                    .btn.btn-danger.downvote(data-id='#{photos[i]._id}')
+                      span(class='glyphicon glyphicon-thumbs-down')
+
+                .col-md-8
+                  a(href='/image/#{photos[i]._id}')
+                    img(src='#{photos[i].viewPath}' style='height : 150px;')
+                .col-md-12      
+                  .caption
+                    h3=photos[i].title
+                    p=photos[i].description
+                    span Tags : 
+                    for tag in photos[i].tags
+                      a(href='image/tags/#{tag.trim()}')=tag
+
           -}
 
