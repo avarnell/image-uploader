@@ -212,9 +212,14 @@ router.get('/user/:username', function(req,res,next){
     var photos = photos
     Users.findOne({username : req.params.username}).then(function(profile){
       var userView = req.params.username
-      res.render('user/profile', {photos : photos, 
+
+      Comment.find({user : profile.username}).then(function(comments){
+        res.render('user/profile', {photos : photos, 
         user: req.session.username,
-        userView : userView
+        userView : userView,
+        comments : comments
+
+        })
       })
     })
   })

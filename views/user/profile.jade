@@ -9,7 +9,7 @@ block content
         li(role="presentation") 
           a(href="#comments" aria-controls="home" role="tab" data-toggle="tab") comments 
       div(class='tab-content')
-        div(data-toggle="tab" class="tab-pane ")
+        div(data-toggle="tab" class="tab-pane active" id='images')
           .row
               h1=userView  
                 span  uploads
@@ -25,7 +25,13 @@ block content
                 p tags: 
                   for tag in photo.tags
                     a(href='/image/tags/#{tag.trim()}')=tag
-        div(data-toggle="tab" class="tab-pane active")
+        div(data-toggle="tab" class="tab-pane" id='comments')
           h1 Comments
+
+          for comment in comments
+            ul
+              li
+                a(href='/image/#{comment.photoID}')=comment.comment
+
 
 
