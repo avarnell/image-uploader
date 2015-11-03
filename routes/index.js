@@ -95,7 +95,7 @@ router.post('/upload',  function(req,res,next){
   upload(req,res, function(err){
     if(!req.file || !req.body.title){
       errors.push("title and file required")
-      res.render('/upload')
+      res.render('image/upload', {errors: errors})
     }
     var name;
     var tags = req.body.tags.trim().split(',')
@@ -211,8 +211,10 @@ router.get('/user/:username', function(req,res,next){
   dbroutes.getUserProfile(req.params.username).then(function(photos){
     var photos = photos
     Users.findOne({username : req.params.username}).then(function(profile){
+      var userView = req.params.username
       res.render('user/profile', {photos : photos, 
-        user: req.session.username
+        user: req.session.username,
+        userView : userView
       })
     })
   })

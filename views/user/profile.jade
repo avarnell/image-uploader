@@ -2,19 +2,30 @@ extends ../layout
 block content
   script(src='/javascripts/profile.js')
   .container
-    .row
-        h1=user
-    .row
-    for photo in photos
-      .media
-        .media-left
-          a(href='/image/#{photo._id}')
-            img(src='#{photo.viewPath}' style='width : 150px;')
-        .media-body
-          h3=photo.title
-          p=photo.description
-          p tags: 
-            for tag in photo.tags
-              a(href='/image/tags/#{tag.trim()}')=tag
+    div(id='tabs' )
+      ul(class='nav-pills nav' id='myTabs' role="tablist")
+        li(role="presentation" class="active")
+          a(href="#images" aria-controls="home" role="tab" data-toggle="tab") uploads 
+        li(role="presentation") 
+          a(href="#comments" aria-controls="home" role="tab" data-toggle="tab") comments 
+      div(class='tab-content')
+        div(data-toggle="tab" class="tab-pane ")
+          .row
+              h1=userView  
+                span  uploads
+          .row
+          for photo in photos
+            .media
+              .media-left
+                a(href='/image/#{photo._id}')
+                  img(src='#{photo.viewPath}' style='width : 150px;')
+              .media-body
+                h3=photo.title
+                p=photo.description
+                p tags: 
+                  for tag in photo.tags
+                    a(href='/image/tags/#{tag.trim()}')=tag
+        div(data-toggle="tab" class="tab-pane active")
+          h1 Comments
 
 

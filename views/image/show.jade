@@ -16,7 +16,8 @@ block content
           
           h1(id='title')=image.title 
           h3  by 
-            small=image.user
+            a(href='/user/#{image.user}')
+              small=image.user
         div(style='text-align : center')
           img(src='#{image.viewPath}')
         .col-md-6.col-md-offset-2
@@ -28,16 +29,19 @@ block content
         .col-md-2      
           .upvotes
             .score
-              h3 Score :
+              h3 Score: 
                 span(id='score')=image.score
             .btn.btn-success.upvote(data-id='#{image._id}')
               span(class='glyphicon glyphicon-thumbs-up')
             .btn.btn-danger.downvote(data-id='#{image._id}')
               span(class='glyphicon glyphicon-thumbs-down')
-            
       .row
           .col-md-offset-2
             h3 Comments 
+        -if(!user){
+          p(class='text-danger  col-md-offset-2') You must be logged in to comment
+
+        -}else{
         form(action='/image/#{image._id}' method='post' class='col-md-6 col-md-offset-3')
           .form-group
             label(for='name') Name : 
@@ -46,9 +50,10 @@ block content
             label(for='comment') Comment : 
             textarea(name='comment' id='comment' class='form-control')
           input(type='submit' value='comment' class='btn btn-primary')
+        -}
       .row
-        -if(!comments.length){
 
+        -if(!comments.length){
           p(class='col-md-6 col-md-offset-2' style='margin-top: 10px') Doesnt look like there is anything here. Why not be the first?
         -}else{
           for comment in comments 
